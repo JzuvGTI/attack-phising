@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Execution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script> <!-- FontAwesome v5 CDN -->
+    <style>
+        /* Hide scrollbar pada textarea */
+        textarea::-webkit-scrollbar {
+            display: none;
+        }
+        textarea {
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            scrollbar-width: none;  /* Firefox */
+            resize: none; /* Disable resizing */
+        }
+
+        /* Menghilangkan scrollbar namun tetap bisa di-scroll pada log */
+        #logs::-webkit-scrollbar {
+            display: none;
+        }
+        #logs {
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-mono text-center p-4 md:p-12">
+
+    <div id="title" class="text-orange-500 text-xs whitespace-pre mb-5">
+        ░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+        ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+        ░▒▓█▓▒░    ░▒▓██▓▒░ ░▒▓█▓▒▒▓█▓▒░  
+        ░▒▓█▓▒░  ░▒▓██▓▒░   ░▒▓█▓▒▒▓█▓▒░  
+    ░▒▓█▓▒░░▒▓█▓▒░░▒▓██▓▒░      ░▒▓█▓▓█▓▒░   
+    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        ░▒▓█▓▓█▓▒░   
+     ░▒▓██████▓▒░░▒▓████████▓▒░  ░▒▓██▓▒░    
+    </div>
+
+    <div id="subtitle" class="text-yellow-500 text-xl font-bold mb-10">
+        Script Created By: <span class="text-yellow-400">JzuvDev</span>
+    </div>
+
+    <!-- Card Information -->
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- URL Information -->
+        <div class="bg-white shadow-md p-6 rounded-lg border-l-4 border-blue-400 flex items-start justify-between">
+            <div class="flex-1">
+                <i class="fas fa-link text-blue-500 text-3xl mb-4"></i>
+                <h4 class="text-lg font-semibold">URL</h4>
+                <textarea id="urlInfo" class="text-sm text-gray-600 bg-transparent border-none focus:outline-none focus:ring-0 w-full" rows="1"></textarea>
+            </div>
+            <button id="updateUrlBtn" class="text-blue-500 hover:text-blue-600"><i class="fas fa-sync-alt"></i> Update</button>
+        </div>
+
+        <!-- Payload Information (Array) -->
+        <div class="bg-white shadow-md p-6 rounded-lg border-l-4 border-yellow-400 flex items-start justify-between">
+            <div class="flex-1">
+                <i class="fas fa-database text-yellow-500 text-3xl mb-4"></i>
+                <h4 class="text-lg font-semibold">Payload (Array)</h4>
+                <textarea id="payloadInfo" class="text-sm text-gray-600 bg-transparent border-none focus:outline-none focus:ring-0 w-full" rows="2"></textarea>
+            </div>
+            <button id="updatePayloadBtn" class="text-yellow-500 hover:text-yellow-600"><i class="fas fa-sync-alt"></i> Update</button>
+        </div>
+
+        <!-- Interval Information -->
+        <div class="bg-white shadow-md p-6 rounded-lg border-l-4 border-green-400 flex items-start justify-between">
+            <div class="flex-1">
+                <i class="fas fa-clock text-green-500 text-3xl mb-4"></i>
+                <h4 class="text-lg font-semibold">Interval</h4>
+                <textarea id="intervalInfo" class="text-sm text-gray-600 bg-transparent border-none focus:outline-none focus:ring-0 w-full" rows="1"></textarea>
+            </div>
+            <button id="updateIntervalBtn" class="text-green-500 hover:text-green-600"><i class="fas fa-sync-alt"></i> Update</button>
+        </div>
+    </div>
+
+    <!-- Tombol Send Request dan Clear Logs -->
+    <div class="flex justify-center gap-4 mb-6">
+        <button id="sendRequestBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            <i class="fas fa-paper-plane mr-2"></i> Send Request
+        </button>
+        <button id="clearLogsBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+            <i class="fas fa-trash mr-2"></i> Clear Logs
+        </button>
+    </div>
+
+    <!-- Statistik Total Request -->
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Total Success -->
+        <div class="bg-green-50 shadow-md p-6 rounded-lg border-l-4 border-green-400">
+            <h4 class="text-lg font-semibold text-green-600">Total Request (Success)</h4>
+            <p id="successCount" class="text-2xl font-bold text-green-500">0</p>
+        </div>
+        <!-- Total Failed -->
+        <div class="bg-red-50 shadow-md p-6 rounded-lg border-l-4 border-red-400">
+            <h4 class="text-lg font-semibold text-red-600">Total Request (Failed)</h4>
+            <p id="failedCount" class="text-2xl font-bold text-red-500">0</p>
+        </div>
+    </div>
+
+    <!-- Log Section -->
+    <div id="logs" class="text-left max-w-4xl mx-auto bg-gray-50 p-6 rounded-lg h-96 overflow-y-scroll text-sm shadow-md">
+        <!-- Log akan ditampilkan di sini -->
+    </div>
+
+    <script>
+        let intervalId; // Untuk menyimpan ID interval
+        let currentUrl = ''; // URL kosong secara default
+        let currentPayloadConfig = []; // Payload Array kosong secara default
+        let currentInterval = 0; // Interval kosong secara default
+        let successCount = 0; // Counter untuk request sukses
+        let failedCount = 0; // Counter untuk request gagal
+
+        // Fungsi untuk menambahkan log ke dalam #logs
+        function addLog(message, type) {
+            const logsContainer = document.getElementById('logs');
+            const logElement = document.createElement('div');
+            logElement.classList.add('log', 'mb-2', 'p-4', 'rounded-md', 'shadow-md', 'border', 'flex', 'items-center');
+
+            // Buat elemen icon berdasarkan tipe log
+            const iconElement = document.createElement('i');
+            iconElement.classList.add('mr-3', 'text-xl'); // Margin kanan dan ukuran
+
+            if (type === 'sending') {
+                logElement.classList.add('text-green-600', 'bg-green-50', 'border-green-200');
+                iconElement.classList.add('fas', 'fa-paper-plane'); // Icon pesawat kertas
+            } else if (type === 'success') {
+                logElement.classList.add('text-green-600', 'bg-green-50', 'border-green-200');
+                iconElement.classList.add('fas', 'fa-check-circle'); // Icon cek
+            } else if (type === 'error') {
+                logElement.classList.add('text-red-600', 'bg-red-50', 'border-red-200');
+                iconElement.classList.add('fas', 'fa-exclamation-triangle'); // Icon error
+            } else if (type === 'info') {
+                logElement.classList.add('text-blue-600', 'bg-blue-50', 'border-blue-200');
+                iconElement.classList.add('fas', 'fa-info-circle'); // Icon info
+            }
+
+            // Menambahkan icon ke elemen log
+            logElement.appendChild(iconElement);
+
+            // Buat teks log
+            const textElement = document.createElement('span');
+            textElement.textContent = message;
+            logElement.appendChild(textElement);
+
+            // Menambahkan log ke dalam container
+            logsContainer.appendChild(logElement);
+
+            // Scroll otomatis ke bawah jika ada log baru
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        // Fungsi untuk menghasilkan nomor acak
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 1000000);
+        }
+
+        // Fungsi untuk menghasilkan username acak
+        function generateUsername() {
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            let username = '';
+            for (let i = 0; i < 8; i++) {
+                username += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return username;
+        }
+
+        // Fungsi untuk menghasilkan password acak
+        function generatePassword() {
+            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+            let password = '';
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        // Fungsi untuk menghasilkan email Gmail acak
+        function generateGmail() {
+            const username = generateUsername();
+            return `${username}@gmail.com`;
+        }
+        // Fungsi untuk mengirim request POST
+        function sendRequest(url, payloadConfig) {
+            const payload = [];
+
+            // Isi payload berdasarkan konfigurasi array
+            payloadConfig.forEach(configItem => {
+                if (configItem === 'number') {
+                    payload.push(getRandomNumber());
+                } else if (configItem === 'username') {
+                    payload.push(generateUsername());
+                } else if (configItem === 'password') {
+                    payload.push(generatePassword());
+                } else if (configItem === 'gmail') {
+                    payload.push(generateGmail());
+                }
+            });
+
+            // Log pengiriman data
+            addLog(`Mengirim data: ${payload.join(', ')}`, 'sending');
+
+            // Mengirim permintaan POST ke URL dengan payload
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Mengatur tipe konten
+                },
+                body: JSON.stringify(payload) // Mengonversi payload menjadi format JSON
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Mengonversi respons menjadi format JSON
+            })
+            .then(data => {
+                addLog(`Sukses: ${JSON.stringify(data)}`, 'success');
+                successCount++; // Tambah counter sukses
+                document.getElementById('successCount').textContent = successCount; // Update tampilan counter sukses
+            })
+            .catch(error => {
+                addLog(`Gagal mengirim: ${error}`, 'error');
+                failedCount++; // Tambah counter gagal
+                document.getElementById('failedCount').textContent = failedCount; // Update tampilan counter gagal
+            });
+        }
+
+        // Fungsi untuk memulai proses pengiriman berkala
+        function startSendingRequests(url, payloadConfig, interval) {
+            intervalId = setInterval(() => sendRequest(url, payloadConfig), interval);
+        }
+
+        // Fungsi untuk menghentikan pengiriman
+        function stopSendingRequests() {
+            clearInterval(intervalId);
+            addLog(`Pengiriman dihentikan.`, 'info');
+        }
+
+        // Menangani klik pada tombol Send Request
+        document.getElementById('sendRequestBtn').addEventListener('click', () => {
+            const button = document.getElementById('sendRequestBtn');
+            
+            if (button.textContent.includes('Send Request')) {
+                button.innerHTML = '<i class="fas fa-stop mr-2"></i> Stop Request'; // Ganti teks tombol
+                startSendingRequests(currentUrl, currentPayloadConfig, currentInterval);
+                addLog(`Pengiriman dimulai setiap ${currentInterval} ms`, 'info');
+            } else {
+                button.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Send Request'; // Ganti teks tombol
+                stopSendingRequests();
+            }
+        });
+
+        // Fungsi untuk update URL
+        document.getElementById('updateUrlBtn').addEventListener('click', () => {
+            const urlInfo = document.getElementById('urlInfo');
+            currentUrl = urlInfo.value;
+            addLog(`URL diubah menjadi: ${currentUrl}`, 'info');
+        });
+
+        // Fungsi untuk update Payload (Array)
+        document.getElementById('updatePayloadBtn').addEventListener('click', () => {
+            const payloadInfo = document.getElementById('payloadInfo');
+            const newPayload = payloadInfo.value.split(',').map(item => item.trim());
+            currentPayloadConfig = newPayload;
+            addLog(`Payload diubah menjadi: ${JSON.stringify(currentPayloadConfig)}`, 'info');
+        });
+
+        // Fungsi untuk update Interval
+        document.getElementById('updateIntervalBtn').addEventListener('click', () => {
+            const intervalInfo = document.getElementById('intervalInfo');
+            if (!isNaN(intervalInfo.value)) {
+                currentInterval = parseInt(intervalInfo.value, 10);
+                addLog(`Interval diubah menjadi: ${currentInterval} ms`, 'info');
+            } else {
+                addLog('Format interval tidak valid!', 'error');
+            }
+        });
+
+        // Fungsi untuk clear logs
+        document.getElementById('clearLogsBtn').addEventListener('click', () => {
+            document.getElementById('logs').innerHTML = ''; // Hapus seluruh isi logs
+            addLog('Logs berhasil dibersihkan', 'info');
+        });
+    </script>
+</body>
+</html>
