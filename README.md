@@ -45,19 +45,19 @@ Script Execution Tool adalah aplikasi web yang memungkinkan pengguna untuk mengi
 ## Teknologi yang Digunakan
 
 - **HTML**
-  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/html5/html5-original.svg" alt="HTML Logo" width="30" height="30"> 
+  - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/640px-HTML5_logo_and_wordmark.svg.png" alt="HTML Logo" width="30" height="30"> 
   - Untuk struktur dasar halaman web.
 
 - **CSS**
-  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS Logo" width="30" height="30"> 
+  - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1280px-Tailwind_CSS_Logo.svg.png" alt="Tailwind CSS Logo" width="30" height="30"> 
   - Menggunakan [Tailwind CSS](https://tailwindcss.com/) untuk styling.
 
 - **JavaScript**
-  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/javascript/javascript-original.svg" alt="JavaScript Logo" width="30" height="30"> 
+  - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/JavaScript-logo.svg/640px-JavaScript-logo.svg.png" alt="JavaScript Logo" width="30" height="30"> 
   - Untuk logika interaktif dan pengelolaan data.
 
 - **Font Awesome**
-  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/fontawesome/fontawesome-original.svg" alt="Font Awesome Logo" width="30" height="30"> 
+  - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Font_Awesome_Logo_2013.svg/1280px-Font_Awesome_Logo_2013.svg.png" alt="Font Awesome Logo" width="30" height="30"> 
   - Untuk ikon.
 
 ## Kontribusi
