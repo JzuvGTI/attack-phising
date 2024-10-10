@@ -45,19 +45,19 @@ Script Execution Tool adalah aplikasi web yang memungkinkan pengguna untuk mengi
 ## Teknologi yang Digunakan
 
 - **HTML**
-  - ![HTML Logo](https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg)
+  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/html5/html5-original.svg" alt="HTML Logo" width="30" height="30"> 
   - Untuk struktur dasar halaman web.
 
 - **CSS**
-  - ![Tailwind CSS Logo](https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg)
+  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS Logo" width="30" height="30"> 
   - Menggunakan [Tailwind CSS](https://tailwindcss.com/) untuk styling.
 
 - **JavaScript**
-  - ![JavaScript Logo](https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg)
+  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/javascript/javascript-original.svg" alt="JavaScript Logo" width="30" height="30"> 
   - Untuk logika interaktif dan pengelolaan data.
 
 - **Font Awesome**
-  - ![Font Awesome Logo](https://raw.githubusercontent.com/devicons/devicon/master/icons/fontawesome/fontawesome-original.svg)
+  - <img src="https://cdn.jsdelivr.net/npm/devicons@2.2.0/icons/fontawesome/fontawesome-original.svg" alt="Font Awesome Logo" width="30" height="30"> 
   - Untuk ikon.
 
 ## Kontribusi
